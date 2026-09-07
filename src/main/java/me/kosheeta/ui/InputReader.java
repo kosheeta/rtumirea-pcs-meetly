@@ -3,6 +3,7 @@ package me.kosheeta.ui;
 import java.util.Scanner;
 
 public class InputReader {
+
     private final Scanner scanner = new Scanner(System.in);
 
     public int readInt(String message) {

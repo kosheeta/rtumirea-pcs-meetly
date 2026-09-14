@@ -1,3 +1,6 @@
+DROP TABLE bookings, rooms, users;
+DROP TYPE booking_status;
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,

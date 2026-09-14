@@ -6,6 +6,7 @@ import ru.rtumirea.meetly.model.BookingStatus;
 import ru.rtumirea.meetly.model.Room;
 import ru.rtumirea.meetly.model.User;
 import ru.rtumirea.meetly.service.BookingService;
+import ru.rtumirea.meetly.service.ExportService;
 import ru.rtumirea.meetly.service.RoomService;
 import ru.rtumirea.meetly.service.StatisticsService;
 import ru.rtumirea.meetly.service.UserService;
@@ -22,6 +23,7 @@ public class ConsoleApplication {
     private final RoomService roomService = new RoomService();
     private final BookingService bookingService = new BookingService();
     private final StatisticsService statisticsService = new StatisticsService();
+    private final ExportService exportService = new ExportService();
 
     public void start() {
 
@@ -38,7 +40,7 @@ public class ConsoleApplication {
                 case 5 -> filterMenu();
                 case 6 -> sortMenu();
                 case 7 -> showStatistics();
-//                case 8 -> exportMenu();
+                case 8 -> exportData();
 //                case 9 -> databaseMenu();
                 case 0 -> {
                     System.out.println("До свидания!");
@@ -64,7 +66,7 @@ public class ConsoleApplication {
         System.out.println("5. Фильтрация");
         System.out.println("6. Сортировка");
         System.out.println("7. Статистика");
-//        System.out.println("8. Экспорт данных");
+        System.out.println("8. Экспорт данных");
 //        System.out.println("9. Вывести таблицы базы данных");
         System.out.println("0. Выход");
 
@@ -496,6 +498,22 @@ public class ConsoleApplication {
         System.out.printf("Средняя вместимость переговорной: %.1f%n", stats.averageRoomCapacity());
         System.out.println("Вместимость самой большой переговорной: " + stats.largestRoomCapacity());
         System.out.println("------------------------------------------------------");
+    }
+
+    private void exportData() {
+
+        String path = input.readString("Путь к файлу для экспорта (например, export.xlsx): ");
+
+        if (path.isBlank()) {
+            path = "export.xlsx";
+        }
+
+        try {
+            exportService.exportToExcel(path);
+            System.out.println("Данные экспортированы в файл: " + path);
+        } catch (RuntimeException e) {
+            System.out.println("Не удалось экспортировать данные: " + e.getMessage());
+        }
     }
 
     private String translateStatus(BookingStatus status) {

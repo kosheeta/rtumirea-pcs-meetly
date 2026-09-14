@@ -7,6 +7,7 @@ import ru.rtumirea.meetly.model.Room;
 import ru.rtumirea.meetly.model.User;
 import ru.rtumirea.meetly.service.BookingService;
 import ru.rtumirea.meetly.service.RoomService;
+import ru.rtumirea.meetly.service.StatisticsService;
 import ru.rtumirea.meetly.service.UserService;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class ConsoleApplication {
     private final UserService userService = new UserService();
     private final RoomService roomService = new RoomService();
     private final BookingService bookingService = new BookingService();
+    private final StatisticsService statisticsService = new StatisticsService();
 
     public void start() {
 
@@ -35,7 +37,7 @@ public class ConsoleApplication {
                 case 4 -> searchMenu();
                 case 5 -> filterMenu();
                 case 6 -> sortMenu();
-//                case 7 -> statisticsMenu();
+                case 7 -> showStatistics();
 //                case 8 -> exportMenu();
 //                case 9 -> databaseMenu();
                 case 0 -> {
@@ -61,7 +63,7 @@ public class ConsoleApplication {
         System.out.println("4. Поиск");
         System.out.println("5. Фильтрация");
         System.out.println("6. Сортировка");
-//        System.out.println("7. Статистика");
+        System.out.println("7. Статистика");
 //        System.out.println("8. Экспорт данных");
 //        System.out.println("9. Вывести таблицы базы данных");
         System.out.println("0. Выход");
@@ -478,6 +480,22 @@ public class ConsoleApplication {
         }
 
         printBookings(bookings);
+    }
+
+    private void showStatistics() {
+
+        StatisticsService.Statistics stats = statisticsService.collect();
+
+        System.out.println("\n-------------------- Статистика ---------------------");
+        System.out.println("Всего пользователей: " + stats.totalUsers());
+        System.out.println("Всего переговорных: " + stats.totalRooms());
+        System.out.println("Всего бронирований: " + stats.totalBookings());
+        System.out.println("Активных: " + stats.activeBookings());
+        System.out.println("Отменённых: " + stats.cancelledBookings());
+        System.out.println("Архивных: " + stats.archivedBookings());
+        System.out.printf("Средняя вместимость переговорной: %.1f%n", stats.averageRoomCapacity());
+        System.out.println("Вместимость самой большой переговорной: " + stats.largestRoomCapacity());
+        System.out.println("------------------------------------------------------");
     }
 
     private String translateStatus(BookingStatus status) {

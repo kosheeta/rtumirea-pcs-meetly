@@ -1,12 +1,13 @@
-package me.kosheeta.ui;
+package ru.rtumirea.meetly.ui;
 
-import me.kosheeta.model.Booking;
-import me.kosheeta.model.BookingStatus;
-import me.kosheeta.model.Room;
-import me.kosheeta.model.User;
-import me.kosheeta.service.BookingService;
-import me.kosheeta.service.RoomService;
-import me.kosheeta.service.UserService;
+import ru.rtumirea.meetly.exception.MeetlyException;
+import ru.rtumirea.meetly.model.Booking;
+import ru.rtumirea.meetly.model.BookingStatus;
+import ru.rtumirea.meetly.model.Room;
+import ru.rtumirea.meetly.model.User;
+import ru.rtumirea.meetly.service.BookingService;
+import ru.rtumirea.meetly.service.RoomService;
+import ru.rtumirea.meetly.service.UserService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -115,7 +116,7 @@ public class ConsoleApplication {
         try {
             User created = userService.create(name, email);
             System.out.println("Пользователь создан, id: " + created.getId());
-        } catch (IllegalArgumentException e) {
+        } catch (MeetlyException e) {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("Не удалось создать пользователя. Возможно, такой email уже используется.");
@@ -129,7 +130,7 @@ public class ConsoleApplication {
         try {
             userService.delete(id);
             System.out.println("Пользователь удалён.");
-        } catch (IllegalArgumentException e) {
+        } catch (MeetlyException e) {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("Не удалось удалить пользователя. Возможно, есть связанные бронирования.");
@@ -187,7 +188,7 @@ public class ConsoleApplication {
         try {
             Room created = roomService.create(name, capacity, address);
             System.out.println("Переговорная создана, id: " + created.getId());
-        } catch (IllegalArgumentException e) {
+        } catch (MeetlyException e) {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("Не удалось создать переговорную.");
@@ -201,7 +202,7 @@ public class ConsoleApplication {
         try {
             roomService.delete(id);
             System.out.println("Переговорная удалена.");
-        } catch (IllegalArgumentException e) {
+        } catch (MeetlyException e) {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("Не удалось удалить переговорную. Возможно, есть связанные бронирования.");
@@ -269,7 +270,7 @@ public class ConsoleApplication {
         try {
             Booking created = bookingService.create(userId, roomId, startTime, endTime);
             System.out.println("Бронирование создано, id: " + created.getId());
-        } catch (IllegalArgumentException e) {
+        } catch (MeetlyException e) {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("Не удалось создать бронирование.");
@@ -283,7 +284,7 @@ public class ConsoleApplication {
         try {
             bookingService.cancel(id);
             System.out.println("Бронирование отменено.");
-        } catch (IllegalArgumentException e) {
+        } catch (MeetlyException e) {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("Не удалось отменить бронирование.");
@@ -297,7 +298,7 @@ public class ConsoleApplication {
         try {
             bookingService.delete(id);
             System.out.println("Бронирование удалено.");
-        } catch (IllegalArgumentException e) {
+        } catch (MeetlyException e) {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("Не удалось удалить бронирование.");

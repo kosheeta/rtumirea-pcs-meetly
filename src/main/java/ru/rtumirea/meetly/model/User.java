@@ -1,4 +1,4 @@
-package me.kosheeta.model;
+package ru.rtumirea.meetly.model;
 
 public class User {
     private Integer id;

@@ -1,7 +1,7 @@
-package me.kosheeta.repository;
+package ru.rtumirea.meetly.repository;
 
-import me.kosheeta.model.User;
-import me.kosheeta.util.DatabaseManager;
+import ru.rtumirea.meetly.model.User;
+import ru.rtumirea.meetly.util.DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

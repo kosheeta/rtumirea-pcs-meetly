@@ -2,7 +2,7 @@ plugins {
     id("java")
 }
 
-group = "me.kosheeta"
+group = "ru.rtumirea.meetly"
 version = "1.0-SNAPSHOT"
 
 repositories {

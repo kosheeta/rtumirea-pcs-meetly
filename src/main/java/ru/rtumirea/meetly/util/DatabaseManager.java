@@ -1,4 +1,4 @@
-package me.kosheeta.util;
+package ru.rtumirea.meetly.util;
 
 import io.github.cdimascio.dotenv.Dotenv;
 

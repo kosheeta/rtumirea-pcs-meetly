@@ -1,7 +1,9 @@
-package me.kosheeta.service;
+package ru.rtumirea.meetly.service;
 
-import me.kosheeta.model.User;
-import me.kosheeta.repository.UserRepository;
+import ru.rtumirea.meetly.exception.EntityNotFoundException;
+import ru.rtumirea.meetly.exception.ValidationException;
+import ru.rtumirea.meetly.model.User;
+import ru.rtumirea.meetly.repository.UserRepository;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -26,11 +28,11 @@ public class UserService {
     public User create(String name, String email) {
 
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Имя не может быть пустым.");
+            throw new ValidationException("Имя не может быть пустым.");
         }
 
         if (email == null || !EMAIL_PATTERN.matcher(email).matches()) {
-            throw new IllegalArgumentException("Некорректный формат email.");
+            throw new ValidationException("Некорректный формат email.");
         }
 
         User user = new User();
@@ -45,7 +47,7 @@ public class UserService {
         User existing = userRepository.findById(id);
 
         if (existing == null) {
-            throw new IllegalArgumentException("Пользователь с id " + id + " не найден.");
+            throw new EntityNotFoundException("Пользователь с id " + id + " не найден.");
         }
 
         userRepository.deleteById(id);

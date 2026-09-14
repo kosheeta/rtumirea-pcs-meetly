@@ -1,4 +1,4 @@
-package me.kosheeta.ui;
+package ru.rtumirea.meetly.ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

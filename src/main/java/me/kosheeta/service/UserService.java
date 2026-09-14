@@ -19,6 +19,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User findById(int id) {
+        return userRepository.findById(id);
+    }
+
     public User create(String name, String email) {
 
         if (name == null || name.isBlank()) {

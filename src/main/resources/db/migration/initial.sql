@@ -7,7 +7,8 @@ CREATE TABLE users (
 CREATE TABLE rooms (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    capacity INTEGER NOT NULL
+    capacity INTEGER NOT NULL,
+    address VARCHAR(255)
 );
 
 CREATE TYPE booking_status AS ENUM ('active', 'cancelled', 'archived');

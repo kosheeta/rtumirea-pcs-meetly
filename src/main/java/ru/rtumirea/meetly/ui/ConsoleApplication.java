@@ -34,9 +34,10 @@ public class ConsoleApplication {
                 case 3 -> bookingsMenu();
                 case 4 -> searchMenu();
                 case 5 -> filterMenu();
-//                case 6 -> statisticsMenu();
-//                case 7 -> exportMenu();
-//                case 8 -> databaseMenu();
+                case 6 -> sortMenu();
+//                case 7 -> statisticsMenu();
+//                case 8 -> exportMenu();
+//                case 9 -> databaseMenu();
                 case 0 -> {
                     System.out.println("До свидания!");
                     break menuLoop;
@@ -59,9 +60,10 @@ public class ConsoleApplication {
         System.out.println("3. Бронирования");
         System.out.println("4. Поиск");
         System.out.println("5. Фильтрация");
-//        System.out.println("6. Статистика");
-//        System.out.println("7. Экспорт данных");
-//        System.out.println("8. Вывести таблицы базы данных");
+        System.out.println("6. Сортировка");
+//        System.out.println("7. Статистика");
+//        System.out.println("8. Экспорт данных");
+//        System.out.println("9. Вывести таблицы базы данных");
         System.out.println("0. Выход");
 
         System.out.println("------------------------------------------------------");
@@ -164,15 +166,7 @@ public class ConsoleApplication {
     }
 
     private void listRooms() {
-
-        List<Room> rooms = roomService.findAll();
-
-        if (rooms.isEmpty()) {
-            System.out.println("\nПереговорных пока нет.");
-            return;
-        }
-
-        printRooms(rooms);
+        showRooms(roomService.findAll());
     }
 
     private void printRooms(List<Room> rooms) {
@@ -243,15 +237,7 @@ public class ConsoleApplication {
     }
 
     private void listBookings() {
-
-        List<Booking> bookings = bookingService.findAll();
-
-        if (bookings.isEmpty()) {
-            System.out.println("\nБронирований пока нет.");
-            return;
-        }
-
-        printBookings(bookings);
+        showBookings(bookingService.findAll());
     }
 
     private void printBookings(List<Booking> bookings) {
@@ -441,6 +427,53 @@ public class ConsoleApplication {
 
         if (bookings.isEmpty()) {
             System.out.println("\nБронирований с таким статусом не найдено.");
+            return;
+        }
+
+        printBookings(bookings);
+    }
+
+    private void sortMenu() {
+
+        submenuLoop: while (true) {
+            System.out.println();
+            System.out.println("------------------- Сортировка -----------------------");
+            System.out.println("1. Переговорные по вместимости");
+            System.out.println("2. Переговорные по названию");
+            System.out.println("3. Бронирования по времени начала");
+            System.out.println("4. Бронирования по статусу");
+            System.out.println("0. Назад");
+            System.out.println("------------------------------------------------------");
+
+            int choice = input.readInt("Выберите действие: ");
+
+            switch (choice) {
+                case 1 -> showRooms(roomService.findAllSortedByCapacity());
+                case 2 -> showRooms(roomService.findAllSortedByName());
+                case 3 -> showBookings(bookingService.findAllSortedByStartTime());
+                case 4 -> showBookings(bookingService.findAllSortedByStatus());
+                case 0 -> {
+                    break submenuLoop;
+                }
+                default -> System.out.println("Неизвестная команда.");
+            }
+        }
+    }
+
+    private void showRooms(List<Room> rooms) {
+
+        if (rooms.isEmpty()) {
+            System.out.println("\nПереговорных пока нет.");
+            return;
+        }
+
+        printRooms(rooms);
+    }
+
+    private void showBookings(List<Booking> bookings) {
+
+        if (bookings.isEmpty()) {
+            System.out.println("\nБронирований пока нет.");
             return;
         }
 

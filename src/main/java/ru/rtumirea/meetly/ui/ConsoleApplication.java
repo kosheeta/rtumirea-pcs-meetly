@@ -33,9 +33,10 @@ public class ConsoleApplication {
                 case 2 -> roomsMenu();
                 case 3 -> bookingsMenu();
                 case 4 -> searchMenu();
-//                case 5 -> statisticsMenu();
-//                case 6 -> exportMenu();
-//                case 7 -> databaseMenu();
+                case 5 -> filterMenu();
+//                case 6 -> statisticsMenu();
+//                case 7 -> exportMenu();
+//                case 8 -> databaseMenu();
                 case 0 -> {
                     System.out.println("До свидания!");
                     break menuLoop;
@@ -57,7 +58,7 @@ public class ConsoleApplication {
         System.out.println("2. Переговорные");
         System.out.println("3. Бронирования");
         System.out.println("4. Поиск");
-//        System.out.println("5. Фильтрация");
+        System.out.println("5. Фильтрация");
 //        System.out.println("6. Статистика");
 //        System.out.println("7. Экспорт данных");
 //        System.out.println("8. Вывести таблицы базы данных");
@@ -372,6 +373,78 @@ public class ConsoleApplication {
         } catch (MeetlyException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
+    }
+
+    private void filterMenu() {
+
+        submenuLoop: while (true) {
+            System.out.println();
+            System.out.println("-------------------- Фильтрация ---------------------");
+            System.out.println("1. Переговорные по минимальной вместимости");
+            System.out.println("2. Бронирования по статусу");
+            System.out.println("0. Назад");
+            System.out.println("------------------------------------------------------");
+
+            int choice = input.readInt("Выберите действие: ");
+
+            switch (choice) {
+                case 1 -> filterRoomsByMinCapacity();
+                case 2 -> filterBookingsByStatus();
+                case 0 -> {
+                    break submenuLoop;
+                }
+                default -> System.out.println("Неизвестная команда.");
+            }
+        }
+    }
+
+    private void filterRoomsByMinCapacity() {
+
+        int minCapacity = input.readInt("Минимальная вместимость: ");
+
+        try {
+            List<Room> rooms = roomService.findByMinCapacity(minCapacity);
+
+            if (rooms.isEmpty()) {
+                System.out.println("\nПереговорные с такой вместимостью не найдены.");
+                return;
+            }
+
+            printRooms(rooms);
+        } catch (MeetlyException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+
+    private void filterBookingsByStatus() {
+
+        System.out.println();
+        System.out.println("1. Активно");
+        System.out.println("2. Отменено");
+        System.out.println("3. Архив");
+
+        int choice = input.readInt("Выберите статус: ");
+
+        BookingStatus status = switch (choice) {
+            case 1 -> BookingStatus.ACTIVE;
+            case 2 -> BookingStatus.CANCELLED;
+            case 3 -> BookingStatus.ARCHIVED;
+            default -> null;
+        };
+
+        if (status == null) {
+            System.out.println("Неизвестный статус.");
+            return;
+        }
+
+        List<Booking> bookings = bookingService.findByStatus(status);
+
+        if (bookings.isEmpty()) {
+            System.out.println("\nБронирований с таким статусом не найдено.");
+            return;
+        }
+
+        printBookings(bookings);
     }
 
     private String translateStatus(BookingStatus status) {

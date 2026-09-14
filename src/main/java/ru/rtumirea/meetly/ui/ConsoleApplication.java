@@ -32,7 +32,7 @@ public class ConsoleApplication {
                 case 1 -> usersMenu();
                 case 2 -> roomsMenu();
                 case 3 -> bookingsMenu();
-//                case 4 -> searchMenu();
+                case 4 -> searchMenu();
 //                case 5 -> statisticsMenu();
 //                case 6 -> exportMenu();
 //                case 7 -> databaseMenu();
@@ -56,7 +56,7 @@ public class ConsoleApplication {
         System.out.println("1. Пользователи");
         System.out.println("2. Переговорные");
         System.out.println("3. Бронирования");
-//        System.out.println("4. Поиск");
+        System.out.println("4. Поиск");
 //        System.out.println("5. Фильтрация");
 //        System.out.println("6. Статистика");
 //        System.out.println("7. Экспорт данных");
@@ -171,6 +171,11 @@ public class ConsoleApplication {
             return;
         }
 
+        printRooms(rooms);
+    }
+
+    private void printRooms(List<Room> rooms) {
+
         System.out.println("\nСписок переговорных:");
         System.out.printf("%-5s %-30s %-12s %-30s%n", "ID", "Название", "Вместимость", "Адрес");
 
@@ -245,6 +250,11 @@ public class ConsoleApplication {
             return;
         }
 
+        printBookings(bookings);
+    }
+
+    private void printBookings(List<Booking> bookings) {
+
         System.out.println("\nСписок бронирований:");
         System.out.printf("%-5s %-10s %-10s %-20s %-20s %-12s%n",
                 "ID", "User ID", "Room ID", "Начало", "Окончание", "Статус");
@@ -302,6 +312,65 @@ public class ConsoleApplication {
             System.out.println("Ошибка: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("Не удалось удалить бронирование.");
+        }
+    }
+
+    private void searchMenu() {
+
+        submenuLoop: while (true) {
+            System.out.println();
+            System.out.println("---------------------- Поиск ------------------------");
+            System.out.println("1. Переговорные по адресу");
+            System.out.println("2. Бронирования пользователя");
+            System.out.println("0. Назад");
+            System.out.println("------------------------------------------------------");
+
+            int choice = input.readInt("Выберите действие: ");
+
+            switch (choice) {
+                case 1 -> searchRoomsByAddress();
+                case 2 -> searchBookingsByUser();
+                case 0 -> {
+                    break submenuLoop;
+                }
+                default -> System.out.println("Неизвестная команда.");
+            }
+        }
+    }
+
+    private void searchRoomsByAddress() {
+
+        String address = input.readString("Адрес (или его часть): ");
+
+        try {
+            List<Room> rooms = roomService.findByAddress(address);
+
+            if (rooms.isEmpty()) {
+                System.out.println("\nПереговорные по такому адресу не найдены.");
+                return;
+            }
+
+            printRooms(rooms);
+        } catch (MeetlyException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+
+    private void searchBookingsByUser() {
+
+        int userId = input.readInt("ID пользователя: ");
+
+        try {
+            List<Booking> bookings = bookingService.findByUserId(userId);
+
+            if (bookings.isEmpty()) {
+                System.out.println("\nУ пользователя нет бронирований.");
+                return;
+            }
+
+            printBookings(bookings);
+        } catch (MeetlyException e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 

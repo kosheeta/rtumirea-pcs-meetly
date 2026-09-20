@@ -1,5 +1,6 @@
-DROP TABLE bookings, rooms, users;
-DROP TYPE booking_status;
+-- Пересоздаёт таблицы и удаляет все существующие данные приложения.
+DROP TABLE IF EXISTS bookings, rooms, users;
+DROP TYPE IF EXISTS booking_status;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,

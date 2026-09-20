@@ -42,7 +42,6 @@ public class ConsoleApplication {
                 case 7 -> showStatistics();
                 case 8 -> exportData();
                 case 0 -> {
-                    System.out.println("До свидания!");
                     break menuLoop;
                 }
                 default -> System.out.println("Неизвестная команда.");

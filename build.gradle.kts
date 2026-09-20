@@ -1,9 +1,14 @@
 plugins {
     id("java")
+    application
 }
 
 group = "ru.rtumirea.meetly"
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass.set("ru.rtumirea.meetly.Main")
+}
 
 repositories {
     mavenCentral()
@@ -21,4 +26,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
 }

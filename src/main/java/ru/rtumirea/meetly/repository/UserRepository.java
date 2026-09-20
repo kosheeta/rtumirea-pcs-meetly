@@ -10,7 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository {
+public class UserRepository implements BaseRepository<User, Integer> {
+    @Override
     public User save(User user) {
 
         String sql = """
@@ -38,6 +39,7 @@ public class UserRepository {
         }
     }
 
+    @Override
     public List<User> findAll() {
 
         String sql = "SELECT id, name, email FROM users ORDER BY id";
@@ -59,7 +61,8 @@ public class UserRepository {
         }
     }
 
-    public User findById(int id) {
+    @Override
+    public User findById(Integer id) {
 
         String sql = "SELECT id, name, email FROM users WHERE id = ?";
 
@@ -80,7 +83,8 @@ public class UserRepository {
         }
     }
 
-    public boolean deleteById(int id) {
+    @Override
+    public boolean deleteById(Integer id) {
 
         String sql = "DELETE FROM users WHERE id = ?";
 

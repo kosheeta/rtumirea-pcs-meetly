@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookingRepository {
+public class BookingRepository implements BaseRepository<Booking, Integer> {
+    @Override
     public Booking save(Booking booking) {
 
         String sql = """
@@ -44,6 +45,7 @@ public class BookingRepository {
         }
     }
 
+    @Override
     public List<Booking> findAll() {
 
         String sql = "SELECT id, user_id, room_id, start_time, end_time, status FROM bookings ORDER BY id";
@@ -65,7 +67,8 @@ public class BookingRepository {
         }
     }
 
-    public Booking findById(int id) {
+    @Override
+    public Booking findById(Integer id) {
 
         String sql = "SELECT id, user_id, room_id, start_time, end_time, status FROM bookings WHERE id = ?";
 
@@ -179,7 +182,8 @@ public class BookingRepository {
         }
     }
 
-    public boolean deleteById(int id) {
+    @Override
+    public boolean deleteById(Integer id) {
 
         String sql = "DELETE FROM bookings WHERE id = ?";
 

@@ -41,7 +41,6 @@ public class ConsoleApplication {
                 case 6 -> sortMenu();
                 case 7 -> showStatistics();
                 case 8 -> exportData();
-//                case 9 -> databaseMenu();
                 case 0 -> {
                     System.out.println("До свидания!");
                     break menuLoop;
@@ -67,7 +66,6 @@ public class ConsoleApplication {
         System.out.println("6. Сортировка");
         System.out.println("7. Статистика");
         System.out.println("8. Экспорт данных");
-//        System.out.println("9. Вывести таблицы базы данных");
         System.out.println("0. Выход");
 
         System.out.println("------------------------------------------------------");

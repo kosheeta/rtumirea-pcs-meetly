@@ -1,6 +1,5 @@
 package ru.rtumirea.meetly.ui;
 
-import ru.rtumirea.meetly.exception.MeetlyException;
 import ru.rtumirea.meetly.model.Booking;
 import ru.rtumirea.meetly.model.BookingStatus;
 import ru.rtumirea.meetly.model.Room;
@@ -50,36 +49,33 @@ public class ConsoleApplication {
     }
 
     private void printMainMenu() {
-
-        System.out.println();
-        System.out.println("======================================================");
-        System.out.println("              СИСТЕМА БРОНИРОВАНИЯ                   ");
-        System.out.println("                  ПЕРЕГОВОРНЫХ                        ");
-        System.out.println("======================================================");
-
-        System.out.println("1. Пользователи");
-        System.out.println("2. Переговорные");
-        System.out.println("3. Бронирования");
-        System.out.println("4. Поиск");
-        System.out.println("5. Фильтрация");
-        System.out.println("6. Сортировка");
-        System.out.println("7. Статистика");
-        System.out.println("8. Экспорт данных");
-        System.out.println("0. Выход");
-
-        System.out.println("------------------------------------------------------");
+        System.out.println("\n" +
+                "======================================================\n" +
+                "              СИСТЕМА БРОНИРОВАНИЯ                   \n" +
+                "                  ПЕРЕГОВОРНЫХ                        \n" +
+                "======================================================\n" +
+                "1. Пользователи\n" +
+                "2. Переговорные\n" +
+                "3. Бронирования\n" +
+                "4. Поиск\n" +
+                "5. Фильтрация\n" +
+                "6. Сортировка\n" +
+                "7. Статистика\n" +
+                "8. Экспорт данных\n" +
+                "0. Выход\n" +
+                "------------------------------------------------------");
     }
 
     private void usersMenu() {
 
         submenuLoop: while (true) {
-            System.out.println();
-            System.out.println("------------------ Пользователи ---------------------");
-            System.out.println("1. Список пользователей");
-            System.out.println("2. Добавить пользователя");
-            System.out.println("3. Удалить пользователя");
-            System.out.println("0. Назад");
-            System.out.println("------------------------------------------------------");
+            System.out.println("\n" +
+                    "------------------ Пользователи ---------------------\n" +
+                    "1. Список пользователей\n" +
+                    "2. Добавить пользователя\n" +
+                    "3. Удалить пользователя\n" +
+                    "0. Назад\n" +
+                    "------------------------------------------------------");
 
             int choice = input.readInt("Выберите действие: ");
 
@@ -120,10 +116,8 @@ public class ConsoleApplication {
         try {
             User created = userService.create(name, email);
             System.out.println("Пользователь создан, id: " + created.getId());
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Не удалось создать пользователя. Возможно, такой email уже используется.");
         }
     }
 
@@ -134,23 +128,21 @@ public class ConsoleApplication {
         try {
             userService.delete(id);
             System.out.println("Пользователь удалён.");
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Не удалось удалить пользователя. Возможно, есть связанные бронирования.");
         }
     }
 
     private void roomsMenu() {
 
         submenuLoop: while (true) {
-            System.out.println();
-            System.out.println("------------------ Переговорные ---------------------");
-            System.out.println("1. Список переговорных");
-            System.out.println("2. Добавить переговорную");
-            System.out.println("3. Удалить переговорную");
-            System.out.println("0. Назад");
-            System.out.println("------------------------------------------------------");
+            System.out.println("\n" +
+                    "------------------ Переговорные ---------------------\n" +
+                    "1. Список переговорных\n" +
+                    "2. Добавить переговорную\n" +
+                    "3. Удалить переговорную\n" +
+                    "0. Назад\n" +
+                    "------------------------------------------------------");
 
             int choice = input.readInt("Выберите действие: ");
 
@@ -189,10 +181,8 @@ public class ConsoleApplication {
         try {
             Room created = roomService.create(name, capacity, address);
             System.out.println("Переговорная создана, id: " + created.getId());
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Не удалось создать переговорную.");
         }
     }
 
@@ -203,24 +193,22 @@ public class ConsoleApplication {
         try {
             roomService.delete(id);
             System.out.println("Переговорная удалена.");
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Не удалось удалить переговорную. Возможно, есть связанные бронирования.");
         }
     }
 
     private void bookingsMenu() {
 
         submenuLoop: while (true) {
-            System.out.println();
-            System.out.println("------------------ Бронирования ---------------------");
-            System.out.println("1. Список бронирований");
-            System.out.println("2. Создать бронирование");
-            System.out.println("3. Отменить бронирование");
-            System.out.println("4. Удалить бронирование");
-            System.out.println("0. Назад");
-            System.out.println("------------------------------------------------------");
+            System.out.println("\n" +
+                    "------------------ Бронирования ---------------------\n" +
+                    "1. Список бронирований\n" +
+                    "2. Создать бронирование\n" +
+                    "3. Отменить бронирование\n" +
+                    "4. Удалить бронирование\n" +
+                    "0. Назад\n" +
+                    "------------------------------------------------------");
 
             int choice = input.readInt("Выберите действие: ");
 
@@ -268,10 +256,8 @@ public class ConsoleApplication {
         try {
             Booking created = bookingService.create(userId, roomId, startTime, endTime);
             System.out.println("Бронирование создано, id: " + created.getId());
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Не удалось создать бронирование.");
         }
     }
 
@@ -282,10 +268,8 @@ public class ConsoleApplication {
         try {
             bookingService.cancel(id);
             System.out.println("Бронирование отменено.");
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Не удалось отменить бронирование.");
         }
     }
 
@@ -296,22 +280,20 @@ public class ConsoleApplication {
         try {
             bookingService.delete(id);
             System.out.println("Бронирование удалено.");
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Не удалось удалить бронирование.");
         }
     }
 
     private void searchMenu() {
 
         submenuLoop: while (true) {
-            System.out.println();
-            System.out.println("---------------------- Поиск ------------------------");
-            System.out.println("1. Переговорные по адресу");
-            System.out.println("2. Бронирования пользователя");
-            System.out.println("0. Назад");
-            System.out.println("------------------------------------------------------");
+            System.out.println("\n" +
+                    "---------------------- Поиск ------------------------\n" +
+                    "1. Переговорные по адресу\n" +
+                    "2. Бронирования пользователя\n" +
+                    "0. Назад\n" +
+                    "------------------------------------------------------");
 
             int choice = input.readInt("Выберите действие: ");
 
@@ -339,7 +321,7 @@ public class ConsoleApplication {
             }
 
             printRooms(rooms);
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
@@ -357,7 +339,7 @@ public class ConsoleApplication {
             }
 
             printBookings(bookings);
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
@@ -365,12 +347,12 @@ public class ConsoleApplication {
     private void filterMenu() {
 
         submenuLoop: while (true) {
-            System.out.println();
-            System.out.println("-------------------- Фильтрация ---------------------");
-            System.out.println("1. Переговорные по минимальной вместимости");
-            System.out.println("2. Бронирования по статусу");
-            System.out.println("0. Назад");
-            System.out.println("------------------------------------------------------");
+            System.out.println("\n" +
+                    "-------------------- Фильтрация ---------------------\n" +
+                    "1. Переговорные по минимальной вместимости\n" +
+                    "2. Бронирования по статусу\n" +
+                    "0. Назад\n" +
+                    "------------------------------------------------------");
 
             int choice = input.readInt("Выберите действие: ");
 
@@ -398,17 +380,17 @@ public class ConsoleApplication {
             }
 
             printRooms(rooms);
-        } catch (MeetlyException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
     private void filterBookingsByStatus() {
 
-        System.out.println();
-        System.out.println("1. Активно");
-        System.out.println("2. Отменено");
-        System.out.println("3. Архив");
+        System.out.println("\n" +
+                "1. Активно\n" +
+                "2. Отменено\n" +
+                "3. Архив");
 
         int choice = input.readInt("Выберите статус: ");
 
@@ -437,14 +419,14 @@ public class ConsoleApplication {
     private void sortMenu() {
 
         submenuLoop: while (true) {
-            System.out.println();
-            System.out.println("------------------- Сортировка -----------------------");
-            System.out.println("1. Переговорные по вместимости");
-            System.out.println("2. Переговорные по названию");
-            System.out.println("3. Бронирования по времени начала");
-            System.out.println("4. Бронирования по статусу");
-            System.out.println("0. Назад");
-            System.out.println("------------------------------------------------------");
+            System.out.println("\n" +
+                    "------------------- Сортировка -----------------------\n" +
+                    "1. Переговорные по вместимости\n" +
+                    "2. Переговорные по названию\n" +
+                    "3. Бронирования по времени начала\n" +
+                    "4. Бронирования по статусу\n" +
+                    "0. Назад\n" +
+                    "------------------------------------------------------");
 
             int choice = input.readInt("Выберите действие: ");
 
@@ -485,16 +467,16 @@ public class ConsoleApplication {
 
         StatisticsService.Statistics stats = statisticsService.collect();
 
-        System.out.println("\n-------------------- Статистика ---------------------");
-        System.out.println("Всего пользователей: " + stats.totalUsers());
-        System.out.println("Всего переговорных: " + stats.totalRooms());
-        System.out.println("Всего бронирований: " + stats.totalBookings());
-        System.out.println("Активных: " + stats.activeBookings());
-        System.out.println("Отменённых: " + stats.cancelledBookings());
-        System.out.println("Архивных: " + stats.archivedBookings());
-        System.out.printf("Средняя вместимость переговорной: %.1f%n", stats.averageRoomCapacity());
-        System.out.println("Вместимость самой большой переговорной: " + stats.largestRoomCapacity());
-        System.out.println("------------------------------------------------------");
+        System.out.println("\n-------------------- Статистика ---------------------\n" +
+                "Всего пользователей: " + stats.totalUsers() + "\n" +
+                "Всего переговорных: " + stats.totalRooms() + "\n" +
+                "Всего бронирований: " + stats.totalBookings() + "\n" +
+                "Активных: " + stats.activeBookings() + "\n" +
+                "Отменённых: " + stats.cancelledBookings() + "\n" +
+                "Архивных: " + stats.archivedBookings() + "\n" +
+                String.format("Средняя вместимость переговорной: %.1f%n", stats.averageRoomCapacity()) +
+                "Вместимость самой большой переговорной: " + stats.largestRoomCapacity() + "\n" +
+                "------------------------------------------------------");
     }
 
     private void exportData() {
@@ -508,8 +490,8 @@ public class ConsoleApplication {
         try {
             exportService.exportToExcel(path);
             System.out.println("Данные экспортированы в файл: " + path);
-        } catch (RuntimeException e) {
-            System.out.println("Не удалось экспортировать данные: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 

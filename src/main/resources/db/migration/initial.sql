@@ -19,8 +19,8 @@ CREATE TYPE booking_status AS ENUM ('active', 'cancelled', 'archived');
 
 CREATE TABLE bookings (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
-    room_id INTEGER NOT NULL REFERENCES rooms(id),
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    room_id INTEGER NOT NULL REFERENCES rooms(id) ON DELETE CASCADE,
     start_time TIMESTAMP NOT NULL,
     end_time TIMESTAMP NOT NULL,
     status VARCHAR(30) NOT NULL

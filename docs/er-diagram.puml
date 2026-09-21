@@ -1,0 +1,49 @@
+@startuml
+title Meetly — модель данных с перечислением BookingStatus
+hide circle
+skinparam linetype ortho
+skinparam shadowing false
+
+entity "Пользователи (users)" as users {
+    * id : SERIAL <<PK>>
+    --
+    * name : VARCHAR(255)
+    * email : VARCHAR(255) <<UK>>
+}
+
+entity "Переговорные (rooms)" as rooms {
+    * id : SERIAL <<PK>>
+    --
+    name : VARCHAR(255)
+    * capacity : INTEGER
+    address : VARCHAR(255)
+}
+
+entity "Бронирования (bookings)" as bookings {
+    * id : SERIAL <<PK>>
+    --
+    * user_id : INTEGER <<FK>>
+    * room_id : INTEGER <<FK>>
+    * start_time : TIMESTAMP
+    * end_time : TIMESTAMP
+    * status : BookingStatus
+}
+
+enum BookingStatus {
+    ACTIVE
+    CANCELLED
+    ARCHIVED
+}
+
+users ||..o{ bookings : создаёт
+rooms ||..o{ bookings : используется в
+bookings ..> BookingStatus : тип поля status
+
+legend bottom
+    * — обязательное поле (NOT NULL)
+    PK — первичный ключ
+    FK — внешний ключ
+    UK — уникальное значение
+    || — ровно один; o{ — от нуля до многих
+endlegend
+@enduml

@@ -8,6 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/console-client" />
+            <option value="$PROJECT_DIR$/javafx-client" />
           </set>
         </option>
         <option name="myGradleHome" value="" />
